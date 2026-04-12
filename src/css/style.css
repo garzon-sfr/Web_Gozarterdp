@@ -1,0 +1,1011 @@
+/* ==========================================
+   GOZARTE RDP - ESTÉTICA VINTAGE
+   Diseño profesional, retro analógico moderno
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta Vintage - Tonos cálidos y desaturados */
+    --primary: #8B6F47;           /* Marrón vintage principal */
+    --primary-dark: #6B5437;      /* Marrón oscuro */
+    --primary-light: #A68B6F;     /* Marrón claro */
+    --accent: #D4A574;            /* Dorado vintage */
+    --accent-warm: #E8C4A0;       /* Crema vintage */
+    
+    /* Fondos */
+    --bg-primary: #F5F1ED;        /* Crema claro */
+    --bg-secondary: #E8E3DD;      /* Gris cálido claro */
+    --bg-tertiary: #D9D0C5;       /* Gris cálido oscuro */
+    
+    /* Texto */
+    --text-primary: #3A3A3A;      /* Marrón oscuro para texto */
+    --text-secondary: #5A5A5A;    /* Gris oscuro */
+    --text-tertiary: #7A7A7A;     /* Gris */
+    
+    /* Estados */
+    --success: #6B8E23;           /* Olive green */
+    --warning: #D4A574;           /* Dorado warning */
+    --error: #A0522D;             /* Sienna */
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Border radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    
+    /* Transiciones */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease-out;
+    
+}
+
+
+/* ==========================================
+   RESET Y BASE
+   ========================================== */
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    font-family: 'Source Serif Pro', 'Georgia', serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    -webkit-user-select: auto;
+    user-select: auto;
+    -webkit-touch-callout: none;
+    touch-action: auto;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    min-height: 100dvh;
+    height: 100dvh;
+    width: 100%;
+    position: relative;
+}
+
+@supports (height: 100dvh) {
+    html,
+    body,
+    .app-container,
+    .menu-dropdown {
+        height: 100dvh;
+    }
+}
+
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+
+.app-container {
+    width: 100%;
+    min-height: 100dvh;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ==========================================
+   SECCIÓN SUPERIOR (Artwork + Metadata)
+   ========================================== */
+
+.upper-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+    z-index: 10;
+}
+
+
+/* ==========================================
+   ARTWORK Y CARÁTULA
+   ========================================== */
+
+.artwork-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 0;
+    position: relative;
+}
+
+/* ==========================================
+   STATION BRANDING (Superior)
+   ========================================== */
+
+.station-branding {
+    text-align: center;
+    padding: var(--spacing-lg) 0;
+}
+
+.station-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -2px;
+    line-height: 1;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: var(--spacing-sm);
+}
+
+.station-name .accent {
+    color: var(--accent);
+    font-style: italic;
+}
+
+.station-tagline {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   ARTWORK Y CARÁTULA
+   ========================================== */
+
+.artwork-main {
+    width: 80vw;
+    max-width: 400px;
+    height: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.artwork-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Indicador offline dentro del artwork */
+.offline-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    z-index: 10;
+}
+
+.offline-indicator.hidden {
+    display: none;
+}
+
+/* Live Indicator Badge */
+.live-badge {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    background: linear-gradient(135deg, #E63946 0%, #A4161A 100%);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
+    z-index: 20;
+}
+
+.live-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+}
+
+.live-badge.hidden {
+    display: none;
+}
+
+/* Song Artwork Overlay (Pequeño en esquina) */
+.song-artwork-container {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    z-index: 15;
+    filter: blur(0);
+    transition: filter 0.3s ease-out;
+}
+
+.song-artwork-container.hidden {
+    display: none;
+}
+
+.song-artwork-container:not(.hidden) {
+    animation: fadeBlurIn 0.3s ease-out;
+}
+
+@keyframes fadeBlurIn {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+.song-artwork {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.song-artwork-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ==========================================
+   METADATA SECTION (Debajo del artwork)
+   ========================================== */
+
+.metadata-section {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    /* padding: var(--spacing-md) 0px;
+    margin-top: var(--spacing-lg); */
+}
+
+.nowplaying-info {
+    animation: none; /* Quitar animaciones */
+}
+
+.track-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.2;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.track-artist {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.track-text {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+    font-style: italic;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ==========================================
+   SECCIÓN INFERIOR (Controles)
+   ========================================== */
+button, 
+.btn-volume, 
+.btn-play-pause, .chat-toggle {
+    cursor: pointer;    
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: transparent; /* Quita el color azul en móvil */
+    outline: none; /* Quita el contorno de enfoque */
+}
+
+.lower-section {
+    height: 100px;
+    background: linear-gradient(180deg, rgba(139, 111, 71, 0.15) 0%, rgba(139, 111, 71, 0.3) 100%);
+    backdrop-filter: blur(10px);
+    border-top: 2px solid rgba(212, 165, 116, 0.3);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: var(--spacing-md);
+    gap: var(--spacing-lg);
+    z-index: 50;
+    position: relative;
+}
+
+/* ==========================================
+   CONTROLES INDIVIDUALES
+   ========================================== */
+
+/* Control Izquierda (Botón de Volumen) */
+.control-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.btn-volume {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(139, 111, 71, 0.3), rgba(139, 111, 71, 0.15));
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    box-shadow: 0 4px 12px rgba(139, 111, 71, 0.2);
+}
+
+/* .btn-volume:hover {
+    background: linear-gradient(135deg, rgba(139, 111, 71, 0.5), rgba(139, 111, 71, 0.3));
+    box-shadow: 0 6px 16px rgba(139, 111, 71, 0.4);
+    transform: scale(1.1);
+} */
+
+/* .btn-volume:active {
+    transform: scale(0.95);
+}  */
+
+/* Barra de volumen vertical */
+/* Contenedor de la barra (el "globo" que flota) */
+.volume-bar {
+    position: absolute;
+    bottom: 80px; /* Un poco más arriba del botón */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px; /* Más delgada y elegante */
+    height: 150px; /* Un poco más alta para mejor control */
+    background: rgba(139, 111, 71, 0.2); /* Fondo sutil */
+    backdrop-filter: blur(15px); /* Efecto desenfoque */
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.volume-bar.hidden {
+    display: none;
+}
+
+/* El Input Rango Vertical */
+.volume-slider-vertical {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 4px; /* Grosor de la línea del carril */
+    height: 120px;
+    background: rgba(212, 165, 116, 0.3); /* Color del carril */
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    /* Eje vertical real para navegadores modernos */
+    writing-mode: vertical-lr; 
+    direction: rtl; 
+}
+
+/* El círculo que arrastras (Webkit: Chrome, Safari, Edge) */
+.volume-slider-vertical::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent); /* Tu color dorado/resaltado */
+    border: 2px solid var(--primary);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: background 0.2s;
+}
+
+/* El círculo que arrastras (Firefox) */
+.volume-slider-vertical::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--primary);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo del carril para Firefox */
+.volume-slider-vertical::-moz-range-track {
+    width: 4px;
+    height: 120px;
+    background: rgba(212, 165, 116, 0.3);
+    border-radius: 2px;
+}
+
+/* Control Centro (Play/Pause) */
+.control-center {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-play-pause {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border: 3px solid var(--accent);
+    color: var(--bg-primary);
+    font-size: 2.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: 0 8px 24px rgba(139, 111, 71, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-play-pause::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 1;
+}
+
+.btn-play-pause:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 32px rgba(139, 111, 71, 0.6);
+}
+
+.btn-play-pause:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 12px rgba(139, 111, 71, 0.4);
+}
+
+.btn-play-pause:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-play-pause i {
+    position: relative;
+    z-index: 2;
+}
+
+/* Control Derecha (Schedule) */
+.control-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-schedule {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(139, 111, 71, 0.3), rgba(139, 111, 71, 0.15));
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(139, 111, 71, 0.2);
+}
+
+.btn-schedule:hover {
+    background: linear-gradient(135deg, rgba(139, 111, 71, 0.5), rgba(139, 111, 71, 0.3));
+    box-shadow: 0 6px 16px rgba(139, 111, 71, 0.4);
+    transform: scale(1.1);
+}
+
+.btn-schedule:active {
+    transform: scale(0.95);
+}
+
+/* Botón Menú */
+.btn-menu {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(139, 111, 71, 0.3), rgba(139, 111, 71, 0.15));
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(139, 111, 71, 0.2);
+}
+
+.btn-menu:hover {
+    background: linear-gradient(135deg, rgba(139, 111, 71, 0.5), rgba(139, 111, 71, 0.3));
+    box-shadow: 0 6px 16px rgba(139, 111, 71, 0.4);
+    transform: scale(1.1);
+}
+
+.btn-menu:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================
+   MENÚ DESPLEGABLE (Redes sociales y derechos)
+   ========================================== */
+
+.menu-dropdown {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100dvh;
+    background: var(--bg-primary);
+    border-left: 2px solid var(--primary);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 2000;
+    overflow-y: auto;
+    animation: slideInFromRight 0.3s ease-out;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.menu-dropdown.hidden {
+    display: none;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--spacing-lg);
+}
+
+.menu-close {
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border: none;
+    color: var(--bg-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    margin-bottom: var(--spacing-lg);
+}
+
+.menu-close:hover {
+    transform: scale(1.1);
+}
+
+.menu-close:active {
+    transform: scale(0.95);
+}
+
+.menu-social {
+    flex: 1;
+}
+
+.menu-social h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: var(--transition-fast);
+    color: white;
+}
+
+.menu-link i {
+    font-size: 1.5rem;
+}
+
+.menu-link.instagram {
+    background: linear-gradient(135deg, #E4405F, #F77737);
+}
+
+.menu-link.instagram:hover {
+    transform: translateX(10px);
+}
+
+.menu-link.facebook {
+    background: #1877F2;
+}
+
+.menu-link.facebook:hover {
+    transform: translateX(10px);
+}
+
+.menu-link.whatsapp {
+    background: #25D366;
+}
+
+.menu-link.whatsapp:hover {
+    transform: translateX(10px);
+}
+
+.menu-link.playstore {
+    background: var(--primary);
+}
+
+.menu-link.playstore:hover {
+    transform: translateX(10px);
+}
+
+.menu-footer {
+    border-top: 2px solid var(--primary);
+    padding-top: var(--spacing-lg);
+    margin-top: auto;
+}
+
+.menu-footer p {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    font-family: 'Source Serif Pro', serif;
+    margin: 0;
+}
+
+/* ==========================================
+   AUDIO ELEMENT (Hidden)
+   ========================================== */
+
+audio {
+    display: none;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+/* Tablet (768px) */
+@media (min-width: 768px) {
+    .station-name {
+        font-size: 3.5rem;
+    }
+
+    .track-title {
+        font-size: 2.3rem;
+    }
+
+    .song-artwork-container {
+        width: 100px;
+        height: 100px;
+    }
+
+    .lower-section {
+        height: 160px;
+        gap: var(--spacing-2xl);
+    }
+
+    .btn-play-pause {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+    }
+}
+
+/* Desktop (1024px) */
+@media (min-width: 1024px) {
+
+    .station-branding {
+        position: absolute;
+        top : 0px;
+        left: var(--spacing-xl);
+        text-align: center;
+        padding: 0;
+        z-index: 100;
+    }
+    .station-name {
+        font-size: 2.5rem;
+    }
+
+    .station-tagline {
+        font-size: 0.9rem;
+    }
+
+    .track-title {
+        font-size: 2.5rem;
+    }
+    .upper-section {
+        justify-content: center; /* Centra el disco y la metadata verticalmente */
+        padding-top: 2rem;
+        gap: var(--spacing-lg);
+    }
+    .artwork-main {
+        width: 350px;
+        max-width: 400px;
+        margin-top: -20px; /* Sube un poco el disco */
+    }
+
+    .song-artwork-container {
+        width: 120px;
+        height: 120px;
+        bottom: var(--spacing-xl);
+        right: var(--spacing-xl);
+    }
+
+    .metadata-section {
+        margin-top: 0;
+        max-width: 600px;
+    }
+.lower-section {
+        height: 120px; /* Un poco más delgado para no robar pantalla */
+        padding: 0 var(--spacing-2xl);
+    }
+
+    .btn-play-pause {
+        width: 110px;
+        height: 110px;
+        font-size: 2.8rem;
+    }
+}
+
+/* ==========================================
+   MODO CLARO Y OSCURO
+   ========================================== */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1A1614;
+        --bg-secondary: #2A2420;
+        --bg-tertiary: #3A3430;
+        --text-primary: #F5F1ED;
+        --text-secondary: #D9D0C5;
+        --text-tertiary: #A68B6F;
+    }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ==========================================
+   SCROLLBAR PERSONALIZADO
+   ========================================== */
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(139, 111, 71, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary), var(--accent));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--primary-dark), var(--accent));
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+/* Tablet (768px) */
+@media (min-width: 768px) {
+    .station-name {
+        font-size: 3.5rem;
+    }
+
+    .artwork-main {
+        width: 60vw;
+        max-width: 500px;
+    }
+
+    .track-title {
+        font-size: 2rem;
+    }
+
+    .lower-section {
+        height: 120px;
+        padding: var(--spacing-lg);
+        gap: 3rem;
+    }
+
+    .btn-play-pause {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+    }
+
+    .menu-dropdown {
+        max-width: 500px;
+    }
+
+    body {
+        padding-bottom: 200px;
+    }
+}
+
+/* Desktop (1024px) */
+@media (min-width: 1024px) {
+    .station-branding {
+        padding: var(--spacing-2xl) 0 var(--spacing-lg) 0;
+    }
+
+    .station-name {
+        font-size: 4rem;
+    }
+
+    .artwork-main {
+        width: 30vw;
+        max-width: 350px;
+    }
+
+    .track-title {
+        font-size: 2.5rem;
+    }
+
+    .metadata-section {
+        max-width: 400px;
+        padding: var(--spacing-md) 0;
+    }
+
+    .lower-section {
+        height: 140px;
+        padding: var(--spacing-2xl) var(--spacing-xl);
+        gap: 5rem;
+    }
+
+    .btn-volume {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .btn-play-pause {
+        width: 120px;
+        height: 120px;
+        font-size: 3rem;
+    }
+
+    .btn-menu {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .menu-dropdown {
+        max-width: 500px;
+    }
+
+    body {
+        padding-bottom: 0;
+    }
+}

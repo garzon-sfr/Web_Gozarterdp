@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GozarteRDP">
+
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="theme-color" content="#8B6F47">
+
+    <meta name="description" content="Escucha GozarteRDP, la emisora cristiana que te conecta con el cielo. Iglesia Cristiana Rey De Paz Santa Barbara - Antioquia, Colombia.">
+    <title id="pageTitle">GozarteRDP - Emisora Cristiana</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    
+    <!-- Google Fonts - Vintage style -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+Pro:wght@400;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/chat.css">
+</head>
+<body>
+    <!-- Contenedor principal sin scroll -->
+    <div id="mainApp" class="app-container">
+        
+        <!-- Sección superior: Carátula y metadata -->
+        <div class="upper-section">
+            <!-- Branding superior -->
+        <div class="station-branding">
+            <h1 class="station-name">Gozarte<span class="accent">RDP</span></h1>
+            <p class="station-tagline">La emisora que te conecta con el cielo</p>
+        </div>
+
+        <!-- Carátula principal (centro) -->
+        <div class="artwork-section">
+            <div class="artwork-main" id="artworkMain">
+                <img src="assets/images/defaul.png" alt="GozarteRDP" class="artwork-image" />
+                <!-- Indicador offline dentro del default -->
+                <div id="offlineIndicator" class="offline-indicator hidden">
+                    <span class="offline-text">⚫ Estación fuera de línea</span>
+                </div>
+            </div>
+        </div>
+            <button class="chat-toggle" id="chat-toggle">
+                <i class="fas fa-comments"></i>
+            </button>
+        <!-- Song Artwork Overlay (esquina inferior derecha) fuera del contenedor principal -->
+        <div class="song-artwork-container hidden" id="songArtworkContainer">
+            <div class="song-artwork">
+                <img id="songArtworkImg" src="" alt="Canción" class="song-artwork-image" />
+            </div>
+        </div>
+        
+
+            <!-- Metadata debajo de la carátula -->
+            <div class="metadata-section">
+                <div class="nowplaying-info">
+                    <h2 id="trackTitle" class="track-title">GozarteRDP</h2>
+                    <p id="trackArtist" class="track-artist">Rey De Paz-Santa Barbara</p>
+                    <p id="trackText" class="track-text"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección inferior: Controles -->
+        <div class="lower-section">
+            <!-- Botón de Volumen (Izquierda) -->
+            <div class="control-left">
+                <button id="volumeButton" class="btn-volume" aria-label="Ajustar volumen">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                
+                <div id="volumeBar" class="volume-bar hidden">
+                    <input 
+                        id="volumeSlider" 
+                        type="range" 
+                        min="0" 
+                        max="100" 
+                        value="100" 
+                        class="volume-slider-vertical"
+                        aria-label="Control de volumen"
+                    />
+                </div>
+            </div>
+
+            <!-- Botón Play/Pause (Centro) -->
+            <div class="control-center">
+                <button 
+                    id="playPauseButton" 
+                    class="btn-play-pause" 
+                    aria-label="Reproducir o pausar"
+                    title="Reproducir/Pausar"
+                >
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+
+            <!-- Botón Menú (Derecha) -->
+            <div class="control-right">
+                <button 
+                    id="menuToggle" 
+                    class="btn-menu" 
+                    aria-label="Abrir menú"
+                    title="Menú"
+                >
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú desplegable (Redes sociales y derechos) -->
+    <nav id="menuDropdown" class="menu-dropdown hidden">
+        <div class="menu-content">
+            <button id="menuClose" class="menu-close" aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="menu-social">
+                <h3>Síguenos</h3>
+                <a href="https://www.instagram.com/emisoragozarterdp/" target="_blank" rel="noopener noreferrer" class="menu-link instagram" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://www.facebook.com/share/1Ckne3J7hL/" target="_blank" rel="noopener noreferrer" class="menu-link facebook" title="Facebook">
+                    <i class="fab fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <!-- <a href="https://wa.me/5734xxxxxxxx" target="_blank" rel="noopener noreferrer" class="menu-link whatsapp" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.gozarterdp" target="_blank" rel="noopener noreferrer" class="menu-link playstore" title="Google Play Store">
+                    <i class="fab fa-google-play"></i>
+                    <span>Play Store</span>
+                </a> -->
+            </div>
+            <div class="menu-footer">
+                <p>&copy; 2026 GozarteRDP. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Audio element -->
+    <audio id="audioElement" crossorigin="anonymous"></audio>
+
+    <!-- Chat System -->
+
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-comments"></i>
+                Chat Gozarte RDP
+                <div class="online-indicator"></div>
+            </div>
+        </div>
+
+        <!-- Login Section -->
+        <div class="chat-login" id="chat-login">
+            <h3>¡Únete al Chat!</h3>
+            <p>Conecta con otros oyentes de Gozarte RDP</p>
+            <input type="text" class="username-input" id="username-input" placeholder="Tu nombre..." maxlength="20">
+            <button class="join-btn" id="join-chat">
+                <i class="fas fa-sign-in-alt"></i> Unirse al Chat
+            </button>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="chat-interface" id="chat-interface">
+            <div class="chat-user-info">
+                Conectado como: <span id="current-user"></span>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages will be populated here -->
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Escribe tu mensaje..." maxlength="500">
+                <button class="send-btn" id="send-message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>    
+
+    <!-- Script principal -->
+    <script type="module" src="/src/js/player.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('PWA: Service Worker registrado'))
+            .catch(err => console.log('PWA: Error al registrar', err));
+            });
+        }
+    </script>
+</body>
+</html>

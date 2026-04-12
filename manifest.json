@@ -1,0 +1,40 @@
+{
+    "id": "/",
+    "name": "GozarteRDP - Emisora Cristiana",
+    "short_name": "GozarteRDP",
+    "description": "Escucha GozarteRDP, la emisora cristiana que te conecta con el cielo. Iglesia Cristiana Rey De Paz Santa Barbara - Antioquia, Colombia.",
+    "display": "standalone",
+    "background_color": "#121212",
+    "theme_color": "#8B6F47",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "assets/images/defaul.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/images/defaul.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "assets/images/screenshot-mobile.png",
+            "sizes": "540x1200",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "GozarteRDP en móvil"
+        },
+        {
+            "src": "assets/images/screenshot-desktop.png",
+            "sizes": "1919x927",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "GozarteRDP en escritorio"
+        }
+    ]
+}

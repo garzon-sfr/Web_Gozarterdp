@@ -1,0 +1,9 @@
+# Entorno virtual
+.venv/
+
+# Documentación
+docs/
+
+# Archivos específicos
+README.md
+server.py
