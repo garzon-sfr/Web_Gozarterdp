@@ -17,7 +17,7 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 // ============ CONFIGURACIÓN DE PWA ============
-const CACHE_NAME = 'gozarte-v3.6';
+const CACHE_NAME = 'gozarte-v3.6.1';
 
 const ASSETS_TO_CACHE = [
     './',
