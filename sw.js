@@ -9,8 +9,8 @@ const ASSETS_TO_CACHE = [
     './src/css/chat.css',
     './src/js/player.js',
     './src/js/modules/chat.js',
-    './assets/favicon.png',
-    './assets/images/defaul.png'
+    './assets/favicon.ico',
+    './assets/images/LogosRDP.webp'
 ];
 
 // ===============================

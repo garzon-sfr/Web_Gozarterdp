@@ -15,7 +15,7 @@
 
     <meta name="description" content="Escucha GozarteRDP, la emisora cristiana que te conecta con el cielo. Iglesia Cristiana Rey De Paz Santa Barbara - Antioquia, Colombia.">
     <title id="pageTitle">GozarteRDP - Emisora Cristiana</title>
-    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     
     <!-- Google Fonts - Vintage style -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+Pro:wght@400;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
         <!-- Carátula principal (centro) -->
         <div class="artwork-section">
             <div class="artwork-main" id="artworkMain">
-                <img src="assets/images/defaul.png" alt="GozarteRDP" class="artwork-image" />
+                <img src="assets/images/LogosRDP.webp" alt="GozarteRDP" class="artwork-image" />
                 <!-- Indicador offline dentro del default -->
                 <div id="offlineIndicator" class="offline-indicator hidden">
                     <span class="offline-text">⚫ Estación fuera de línea</span>
@@ -164,7 +164,7 @@
         <!-- Login Section -->
         <div class="chat-login" id="chat-login">
             <h3>¡Únete al Chat!</h3>
-            <p>Conecta con otros oyentes de Gozarte RDP</p>
+            <p>Conecta con GozarteRDP</p>
             <input type="text" class="username-input" id="username-input" placeholder="Tu nombre..." maxlength="20">
             <button class="join-btn" id="join-chat">
                 <i class="fas fa-sign-in-alt"></i> Unirse al Chat
@@ -173,14 +173,18 @@
 
         <!-- Chat Interface -->
         <div class="chat-interface" id="chat-interface">
-            <div class="chat-user-info">
+        <div class="chat-user-info">
+            <div class="user-block">
                 Conectado como: <span id="current-user"></span>
             </div>
-            
+            <p id="listenersCount" class="listeners">
+                <i class="fas fa-headset"></i>
+            </p>
+        </div>  
             <div class="chat-messages" id="chat-messages">
                 <!-- Messages will be populated here -->
             </div>
-
+            
             <div class="chat-input-container">
                 <input type="text" class="chat-input" id="chat-input" placeholder="Escribe tu mensaje..." maxlength="500">
                 <button class="send-btn" id="send-message">
@@ -189,7 +193,6 @@
             </div>
         </div>
     </div>    
-
     <!-- Script principal -->
     <script type="module" src="/src/js/player.js"></script>
     <script>

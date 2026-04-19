@@ -87,7 +87,36 @@ class ChatManager {
                 }
             });
         }
+
+        // Cerrar chat al hacer click fuera
+        document.addEventListener('click', (e) => {
+            const chatContainer = document.getElementById('chat-container');
+            const chatToggle = document.getElementById('chat-toggle');
+
+            if (!chatContainer || !chatToggle) return;
+
+            // Si el chat está cerrado → no hacer nada
+            if (!this.isOpen) return;
+
+            const clickedInsideChat = chatContainer.contains(e.target);
+            const clickedToggle = chatToggle.contains(e.target);
+
+            if (!clickedInsideChat && !clickedToggle) {
+                this.closeChat();
+            }
+        });
     }
+
+    closeChat() {
+    const chatContainer = document.getElementById('chat-container');
+    const chatToggle = document.getElementById('chat-toggle');
+
+    if (!chatContainer || !chatToggle) return;
+
+    this.isOpen = false;
+    chatContainer.classList.remove('open');
+    chatToggle.innerHTML = '<i class="fas fa-comments"></i>';
+}
 
     toggleChat() {
         const chatContainer = document.getElementById('chat-container');
@@ -95,18 +124,17 @@ class ChatManager {
         
         if (!chatContainer || !chatToggle) return;
 
-        this.isOpen = !this.isOpen;
-        
         if (this.isOpen) {
-            chatContainer.classList.add('open');
-            chatToggle.innerHTML = '<i class="fas fa-times"></i>';
-            
-            if (this.currentUser) {
-                this.loadMessages();
-            }
-        } else {
-            chatContainer.classList.remove('open');
-            chatToggle.innerHTML = '<i class="fas fa-comments"></i>';
+            this.closeChat();
+            return;
+        }
+
+        this.isOpen = true;
+        chatContainer.classList.add('open');
+        chatToggle.innerHTML = '<i class="fas fa-times"></i>';
+
+        if (this.currentUser) {
+            this.loadMessages();
         }
     }
 

@@ -58,7 +58,7 @@ class VintageRadioPlayer {
      * Inicializa el reproductor
      */
     init() {
-        console.log('🎙️ Inicializando VintageRadioPlayer...');
+        // console.log('🎙️ Inicializando VintageRadioPlayer...');
         
         // Configurar audio element
         this.setupAudioElement();
@@ -81,7 +81,7 @@ class VintageRadioPlayer {
         // init chat        
         this.chat.checkSavedUser();
 
-        console.log('✓ VintageRadioPlayer listo');
+        // console.log('✓ VintageRadioPlayer listo');
     }
 
     /**
@@ -120,11 +120,11 @@ class VintageRadioPlayer {
         const artworkSrc = await this.createBlurredArtwork(artworkUrl);
 
         navigator.mediaSession.metadata = new MediaMetadata({
-            title: document.getElementById('pageTitle').textContent || 'Gozarte RDP',
+            title: document.getElementById('pageTitle').textContent || 'GozarteRDP',
             artist: metadata.title || 'Sin título',
             album: metadata.artist || 'Radio Cristiana',
             artwork: [
-                { src: artworkSrc, sizes: '512x512', type: 'image/png' }
+                { src: artworkSrc, sizes: '512x512', type: 'image/webp' }
             ]
         });
 
@@ -154,7 +154,7 @@ class VintageRadioPlayer {
             canvas.height = size;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(image, 0, 0, size, size);
-            return canvas.toDataURL('image/png');
+            return canvas.toDataURL('image/webp');
         } catch (err) {
             return artUrl;
         }
@@ -175,7 +175,7 @@ class VintageRadioPlayer {
         this.elements.volumeSlider.addEventListener('input', (e) => {
             const volume = parseInt(e.target.value, 10) / 100;
             this.elements.audioElement.volume = Math.max(0, Math.min(1, volume));
-            console.log(`🔊 Volumen: ${e.target.value}%`);
+            // console.log(`🔊 Volumen: ${e.target.value}%`);
         });
         
         // Menú
@@ -225,7 +225,7 @@ class VintageRadioPlayer {
         const url = `${this.API_BASE_URL}/nowplaying/${this.STATION_SHORT_NAME}`;
         
         try {
-            console.log('📡 Consultando API...');
+            // console.log('📡 Consultando API...');
             const response = await fetch(url, {
                 cache: 'no-store',
                 method: 'GET'
@@ -240,10 +240,10 @@ class VintageRadioPlayer {
             this.state.connectionRetries = 0;
             
             this.processNowPlayingData(data);
-            console.log('✓ Datos actualizados');
+            // console.log('✓ Datos actualizados');
             
         } catch (err) {
-            console.error('❌ Error:', err.message);
+            // console.error('❌ Error:', err.message);
             this.handleApiError();
         }
     }
@@ -254,9 +254,14 @@ class VintageRadioPlayer {
     processNowPlayingData(data) {
         if (!data) return;
 
+        const listeners = data.listeners?.current || 0;
         const isOnline = data.is_online || (data.station && data.station.is_online);
         const isLive = data.live && data.live.is_live;
 
+        const el = document.getElementById("listenersCount");
+        if (el) {
+            el.textContent = `${listeners}`;
+        }
         this.state.isOnline = isOnline;
         this.state.isLive = isLive;
 
@@ -283,6 +288,7 @@ class VintageRadioPlayer {
         if (indicator) {
         indicator.classList.toggle('active', this.state.isOnline);
 }
+        this.state.listeners = data.listeners?.current || 0;
     }
 
     /**
@@ -307,8 +313,8 @@ class VintageRadioPlayer {
             // REPRODUCCIÓN NORMAL
             const song = data.now_playing.song;
             return {
-                title: /*song.title ||*/ 'GozarteRDP', //Todo metadatos incompletos, mostrar nombre de la emisora
-                artist:/*song.artist ||*/ 'Emisora Cristiana', //Todo metadatos incompletos, mostrar descripción genérica
+                title: song.title ||'Una Familia en la Fé', //Todo metadatos incompletos, mostrar nombre de la emisora
+                artist:song.artist ||'Rey De Paz', //Todo metadatos incompletos, mostrar descripción genérica
                 text: '',
                 isOnline: true,
                 isLive: false,
@@ -341,7 +347,7 @@ class VintageRadioPlayer {
             
             if (currentArtUrl) {
                 // Mostrar artwork
-                console.log('🎨 Actualizando artwork:', currentArtUrl);
+                // console.log('🎨 Actualizando artwork:', currentArtUrl);
                 
                 // Crear nueva imagen para precargarla
                 const img = new Image();
@@ -350,7 +356,7 @@ class VintageRadioPlayer {
                     this.elements.songArtworkContainer.classList.remove('hidden');
                 };
                 img.onerror = () => {
-                    console.warn('⚠️ Error cargando artwork');
+                    // console.warn('⚠️ Error cargando artwork');
                     this.elements.songArtworkContainer.classList.add('hidden');
                 };
                 img.src = currentArtUrl;
@@ -396,7 +402,7 @@ class VintageRadioPlayer {
         this.elements.audioElement.muted = !isMuted;
         this.state.isMuted = this.elements.audioElement.muted;
         this.updateVolumeIcon(this.state.isMuted);
-        console.log(`🔇 ${this.state.isMuted ? 'Muted' : 'Unmuted'}`);
+        // console.log(`🔇 ${this.state.isMuted ? 'Muted' : 'Unmuted'}`);
     }
 
     /**
@@ -404,7 +410,7 @@ class VintageRadioPlayer {
      */
     togglePlay() {
         if (!this.state.isOnline) {
-            console.warn('⚠️ No puedo reproducir: emisora offline');
+            // console.warn('⚠️ No puedo reproducir: emisora offline');
             return;
         }
 
@@ -422,7 +428,7 @@ class VintageRadioPlayer {
      * Inicia reproducción con fade in
      */
     async play() {
-        console.log('▶️ Iniciando reproducción...');
+        // console.log('▶️ Iniciando reproducción...');
         
         try {
             // 1. Configuramos el origen antes de darle a play
@@ -440,9 +446,9 @@ class VintageRadioPlayer {
         } catch (err) {
             // Filtramos el error de interrupción porque es un comportamiento esperado en clics rápidos
             if (err.name === 'AbortError') {
-                console.log('⚠️ Reproducción interrumpida por el usuario (limpieza silenciosa).');
+                // console.log('⚠️ Reproducción interrumpida por el usuario (limpieza silenciosa).');
             } else {
-                console.error('❌ Error real al reproducir:', err);
+                // console.error('❌ Error real al reproducir:', err);
                 this.updatePlayButtonState(false);
             }
         }
@@ -452,7 +458,7 @@ class VintageRadioPlayer {
      * Pausa reproducción con fade out (Blindado)
      */
     pause() {
-        console.log('⏸️ Pausando reproducción...');
+        //console.log('⏸️ Pausando reproducción...');
         
         // 1. Cambiamos el icono inmediatamente para que el usuario vea que la app respondió
         this.updatePlayButtonState(false);
@@ -465,7 +471,7 @@ class VintageRadioPlayer {
             audio.pause();
             audio.removeAttribute('src'); 
             audio.load(); 
-            console.log('🛑 Stream liberado.');
+            // console.log('🛑 Stream liberado.');
         }, 510);
     }
 
@@ -533,7 +539,7 @@ class VintageRadioPlayer {
             this.fetchNowPlaying();
         }, 20000);
 
-        console.log('🔄 Polling iniciado');
+        // console.log('🔄 Polling iniciado');
     }
 
     /**
@@ -542,7 +548,7 @@ class VintageRadioPlayer {
     stopPolling() {
         if (this.state.updateTimer) {
             clearInterval(this.state.updateTimer);
-            console.log('🛑 Polling detenido');
+            // console.log('🛑 Polling detenido');
         }
     }
 
@@ -551,10 +557,10 @@ class VintageRadioPlayer {
      */
     handleVisibilityChange() {
         if (document.visibilityState === 'visible') {
-            console.log('👁️ Pestaña visible - actualizando datos');
+            // console.log('👁️ Pestaña visible - actualizando datos');
             this.fetchNowPlaying();
         } else {
-            console.log('👁️ Pestaña oculta');
+            // console.log('👁️ Pestaña oculta');
         }
     }
 
@@ -577,7 +583,7 @@ class VintageRadioPlayer {
      * Callback cuando comienza la reproducción
      */
     onAudioPlay() {
-        console.log('▶️ Audio en reproducción');
+        // console.log('▶️ Audio en reproducción');
         this.updatePlayButtonState(true);
         if ('mediaSession' in navigator) {
             navigator.mediaSession.playbackState = 'playing';
@@ -588,7 +594,7 @@ class VintageRadioPlayer {
      * Callback cuando se pausa la reproducción
      */
     onAudioPause() {
-        console.log('⏸️ Audio pausado');
+        // console.log('⏸️ Audio pausado');
         this.updatePlayButtonState(false);
         if ('mediaSession' in navigator) {
             navigator.mediaSession.playbackState = 'paused';
@@ -603,7 +609,7 @@ class VintageRadioPlayer {
         const MAX_RETRIES = 5;
 
         if (this.state.connectionRetries < MAX_RETRIES) {
-            console.log(`🔄 Reintentando (${this.state.connectionRetries}/${MAX_RETRIES})...`);
+            // console.log(`🔄 Reintentando (${this.state.connectionRetries}/${MAX_RETRIES})...`);
             setTimeout(() => this.fetchNowPlaying(), 5000);
         } else {
             console.error('❌ Máximo de reintentos alcanzado');
@@ -614,7 +620,7 @@ class VintageRadioPlayer {
      * Limpia recursos al cerrar
      */
     cleanup() {
-        console.log('🧹 Limpiando recursos...');
+        // console.log('🧹 Limpiando recursos...');
         this.stopPolling();
         this.pause();
 
@@ -677,7 +683,7 @@ class VintageRadioPlayer {
 let player = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('📱 DOM cargado - inicializando player');
+    // console.log('📱 DOM cargado - inicializando player');
     player = new VintageRadioPlayer();
 });
 
@@ -699,7 +705,3 @@ window.DEBUG = {
     }
 };
 
-console.log('💡 Escribe DEBUG en la consola para acceder a funciones de debug');
-
-
-//TODO esto es de

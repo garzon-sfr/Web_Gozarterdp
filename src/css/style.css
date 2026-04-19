@@ -10,29 +10,35 @@
 }
 
 :root {
-    /* Paleta Vintage - Tonos cálidos y desaturados */
-    --primary: #8B6F47;           /* Marrón vintage principal */
-    --primary-dark: #6B5437;      /* Marrón oscuro */
-    --primary-light: #A68B6F;     /* Marrón claro */
-    --accent: #D4A574;            /* Dorado vintage */
-    --accent-warm: #E8C4A0;       /* Crema vintage */
+    /* ===== NUEVA PALETA NEON WORSHIP ===== */
     
-    /* Fondos */
-    --bg-primary: #F5F1ED;        /* Crema claro */
-    --bg-secondary: #E8E3DD;      /* Gris cálido claro */
-    --bg-tertiary: #D9D0C5;       /* Gris cálido oscuro */
+    /* Primarios: Azules Vibrantes */
+    --primary: rgb(20, 188, 255);             /* Azul primario vibrante */
+    --primary-dark: #0056b3;        /* Azul más oscuro para fondos o profundidad */
+    --primary-light: #66B0FF;       /* Azul claro para detalles sutiles */
+    
+    /* Neones (El Alma del Diseño) */
+    --neon-blue: #00eeff8e;            /* Azul cian eléctrico PRINCIPAL */
+    --neon-blue-glow: 0 0 5px #00F0FF, 0 0 10px #00F0FF, 0 0 20px #007BFF; /* Sombra de neón */
+    --neon-accent: #7000FF;          /* Púrpura / Violeta neón para acentos */
+    --neon-accent-glow: 0 0 5px #7000FF, 0 0 15px #7000FF, 0 0 25px #3A00A0;
+    
+    /* Fondos (Modo Oscuro por Defecto) */
+    --bg-primary: #0A0F1A;          /* Azul grisáceo muy oscuro (mejor que el negro puro) */
+    --bg-secondary: #111827;        /* Un poco más claro para contrastar */
+    --bg-tertiary: #1F2937;         /* Para tarjetas o elementos elevados */
     
     /* Texto */
-    --text-primary: #3A3A3A;      /* Marrón oscuro para texto */
-    --text-secondary: #5A5A5A;    /* Gris oscuro */
-    --text-tertiary: #7A7A7A;     /* Gris */
+    --text-primary: #F3F4F6;        /* Blanco/gris muy claro para máximo contraste */
+    --text-secondary: #9CA3AF;      /* Gris azulado para texto secundario */
+    --text-tertiary: #6B7280;       /* Gris más apagado */
     
-    /* Estados */
-    --success: #6B8E23;           /* Olive green */
-    --warning: #D4A574;           /* Dorado warning */
-    --error: #A0522D;             /* Sienna */
+    /* Estados y Feedback */
+    --success: #10B981;             /* Verde esmeralda neón */
+    --warning: #F59E0B;             /* Ámbar neón */
+    --error: #EF4444;               /* Rojo neón */
     
-    /* Spacing */
+    /* (Mantén tus variables de spacing, radius y transition igual) */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
@@ -40,18 +46,14 @@
     --spacing-xl: 2rem;
     --spacing-2xl: 3rem;
     
-    /* Border radius */
     --radius-sm: 0.25rem;
     --radius-md: 0.5rem;
     --radius-lg: 1rem;
     --radius-xl: 1.5rem;
     
-    /* Transiciones */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.15s ease-out;
-    
 }
-
 
 /* ==========================================
    RESET Y BASE
@@ -158,11 +160,29 @@ body {
     line-height: 1;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     margin-bottom: var(--spacing-sm);
+    /* pequeño detalle: un suspiro de neón al hacer hover */
+    transition: text-shadow 0.3s ease;
+}
+
+.station-name:hover {
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.3),
+                 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .station-name .accent {
-    color: var(--accent);
+    color: #7FFFD4;  /* Espuma de mar (Aquamarine) */
     font-style: italic;
+    /* Efecto neón suave y constante - sin animación molesta */
+    text-shadow: 0 0 5px rgba(127, 255, 212, 0.4),
+                 0 0 10px rgba(127, 255, 212, 0.2);
+    transition: text-shadow 0.3s ease;
+}
+
+/* Pequeño detalle: el acento brilla un poquito más al hacer hover en el nombre */
+.station-name:hover .accent {
+    text-shadow: 0 0 8px rgba(127, 255, 212, 0.6),
+                 0 0 15px rgba(127, 255, 212, 0.3),
+                 
 }
 
 .station-tagline {
@@ -172,6 +192,16 @@ body {
     font-style: italic;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
     letter-spacing: 0.5px;
+}
+@media (prefers-color-scheme: light) {
+    .station-name .accent {
+        color: #20B2AA;  /* Light Sea Green - un tono más intenso pero elegante */
+        text-shadow: 0 0 4px rgba(32, 178, 170, 0.3);
+    }
+    
+    .station-name:hover .accent {
+        text-shadow: 0 0 8px rgba(32, 178, 170, 0.5);
+    }
 }
 
 /* ==========================================
@@ -257,11 +287,11 @@ body {
     height: 80px;
     border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    border: 3px solid rgba(255, 255, 255, 0.8);
     z-index: 15;
     filter: blur(0);
     transition: filter 0.3s ease-out;
+    border: 3px solid var(--neon-blue);
+    box-shadow: 0 -4px 15px -5px var(--neon-blue);
 }
 
 .song-artwork-container.hidden {
@@ -330,12 +360,14 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--text-primary);
+    text-shadow: 0 0 5px rgba(0, 238, 255, 0.395);
+    letter-spacing: -0.5px;
     margin-bottom: var(--spacing-sm);
     line-height: 1.2;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: pre-line;
 }
 
 .track-artist {
@@ -378,7 +410,8 @@ button,
     height: 100px;
     background: linear-gradient(180deg, rgba(139, 111, 71, 0.15) 0%, rgba(139, 111, 71, 0.3) 100%);
     backdrop-filter: blur(10px);
-    border-top: 2px solid rgba(212, 165, 116, 0.3);
+    border-top: 2px solid var(--neon-blue);
+    box-shadow: 0 -4px 15px -5px var(--neon-blue);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -511,16 +544,17 @@ button,
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    border: 3px solid var(--accent);
-    color: var(--bg-primary);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    border: 2px solid var(--neon-blue); /* Borde neón */
+    color: var(--text-primary);
     font-size: 2.2rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition);
-    box-shadow: 0 8px 24px rgba(139, 111, 71, 0.4);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5), /* Sombra de neón difusa */
+                0 8px 24px rgba(0, 0, 0, 0.4); /* Sombra normal para profundidad */
     position: relative;
     overflow: hidden;
 }
@@ -541,7 +575,8 @@ button,
 
 .btn-play-pause:hover {
     transform: scale(1.08);
-    box-shadow: 0 12px 32px rgba(139, 111, 71, 0.6);
+    box-shadow: 0 0 25px var(--neon-blue), /* ¡Neón más intenso al hacer hover! */
+                0 12px 32px rgba(0, 0, 0, 0.6);
 }
 
 .btn-play-pause:active {
@@ -678,10 +713,12 @@ button,
     justify-content: center;
     transition: var(--transition);
     margin-bottom: var(--spacing-lg);
+    
 }
 
 .menu-close:hover {
     transform: scale(1.1);
+    
 }
 
 .menu-close:active {
@@ -865,12 +902,12 @@ audio {
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: #1A1614;
-        --bg-secondary: #2A2420;
-        --bg-tertiary: #3A3430;
-        --text-primary: #F5F1ED;
-        --text-secondary: #D9D0C5;
-        --text-tertiary: #A68B6F;
+        --bg-primary: #0e1628;          /* Azul grisáceo muy oscuro (mejor que el negro puro) */
+        --bg-secondary: #111827;        /* Un poco más claro para contrastar */
+        --bg-tertiary: #1F2937;  
+        --text-primary: #F3F4F6;        /* Blanco/gris muy claro para máximo contraste */
+        --text-secondary: #9CA3AF;      /* Gris azulado para texto secundario */
+        --text-tertiary: #6B7280;  
     }
 }
 
@@ -1007,5 +1044,52 @@ input:focus-visible {
 
     body {
         padding-bottom: 0;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        /* Fondos claros pero con "textura" */
+        --bg-primary: #d5fbff72;          /* Gris muy claro, casi blanco */
+        --bg-secondary: #F1F5F9;        /* Un tono más para contrastar */
+        --bg-tertiary: #E2E8F0;
+        
+        /* Texto oscuro para leer bien */
+        --text-primary: #0F172A;
+        --text-secondary: #334155;
+        --text-tertiary: #64748B;
+        
+        /* Neones en modo claro: se vuelven más intensos y oscuros al mismo tiempo */
+        --neon-blue: #00a0cc;            /* Azul más profundo y vibrante */
+        --neon-blue-glow: 0 0 5px #0066CC, 0 0 10px #00A3FF;
+        --neon-accent: #5A00D4;
+        --neon-accent-glow: 0 0 5px #5A00D4, 0 0 15px #8A2BE2;
+        
+        /* Ajusta el primario para que contraste bien */
+        --primary: #4f4f4fcc;
+        --primary-light: #000605;
+        --primary-dark: #00eeff;
+    }
+    
+    /* Ajustes específicos para el modo claro */
+    .lower-section {
+        background: linear-gradient(180deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 102, 204, 0.15) 100%);
+        border-top: 2px solid var(--neon-blue);
+    }
+    
+    .btn-play-pause {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        border: 2px solid var(--neon-blue);
+        box-shadow: 0 0 20px rgba(0, 102, 204, 0.3), 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-play-pause:hover {
+        box-shadow: 0 0 30px rgba(0, 102, 204, 0.6);
+    }
+    
+    .menu-dropdown {
+        background: rgba(248, 250, 252, 0.95);
+        backdrop-filter: blur(10px);
+        border-left: 2px solid var(--neon-blue);
     }
 }

@@ -9,15 +9,15 @@
     "orientation": "portrait",
     "icons": [
         {
-            "src": "assets/images/defaul.png",
-            "sizes": "512x512",
-            "type": "image/png",
+            "src": "assets/images/LogosRDP.webp",
+            "sizes": "1000x1000",
+            "type": "image/webp",
             "purpose": "any"
         },
         {
-            "src": "assets/images/defaul.png",
-            "sizes": "512x512",
-            "type": "image/png",
+            "src": "assets/images/LogosRDP.webp",
+            "sizes": "1000x1000",
+            "type": "image/webp",
             "purpose": "maskable"
         }
     ],
