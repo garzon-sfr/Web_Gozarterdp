@@ -367,7 +367,7 @@ body {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: pre-line;
+    white-space: nowrap;
 }
 
 .track-artist {
@@ -663,7 +663,7 @@ button,
     position: fixed;
     top: 0;
     right: 0;
-    width: 100%;
+    width: 50%;
     max-width: 400px;
     height: 100dvh;
     background: var(--bg-primary);
@@ -703,7 +703,7 @@ button,
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: linear-gradient(135deg, var(--neon-accent), var(--primary-dark));
     border: none;
     color: var(--bg-primary);
     font-size: 1.2rem;
@@ -1050,7 +1050,7 @@ input:focus-visible {
 @media (prefers-color-scheme: light) {
     :root {
         /* Fondos claros pero con "textura" */
-        --bg-primary: #d5fbff72;          /* Gris muy claro, casi blanco */
+        --bg-primary: #a6f6ff65;          /* Gris muy claro, casi blanco */
         --bg-secondary: #F1F5F9;        /* Un tono más para contrastar */
         --bg-tertiary: #E2E8F0;
         
@@ -1060,13 +1060,13 @@ input:focus-visible {
         --text-tertiary: #64748B;
         
         /* Neones en modo claro: se vuelven más intensos y oscuros al mismo tiempo */
-        --neon-blue: #00a0cc;            /* Azul más profundo y vibrante */
+        --neon-blue: #00d0ff;            /* Azul más profundo y vibrante */
         --neon-blue-glow: 0 0 5px #0066CC, 0 0 10px #00A3FF;
         --neon-accent: #5A00D4;
         --neon-accent-glow: 0 0 5px #5A00D4, 0 0 15px #8A2BE2;
         
         /* Ajusta el primario para que contraste bien */
-        --primary: #4f4f4fcc;
+        --primary: #d30000d0;
         --primary-light: #000605;
         --primary-dark: #00eeff;
     }

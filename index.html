@@ -9,9 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="GozarteRDP">
 
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json?v=3">
 
-    <meta name="theme-color" content="#8B6F47">
+    <meta name="theme-color" content="#00F0FF">
 
     <meta name="description" content="Escucha GozarteRDP, la emisora cristiana que te conecta con el cielo. Iglesia Cristiana Rey De Paz Santa Barbara - Antioquia, Colombia.">
     <title id="pageTitle">GozarteRDP - Emisora Cristiana</title>
@@ -195,14 +195,21 @@
     </div>    
     <!-- Script principal -->
     <script type="module" src="/src/js/player.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
+<!-- En tu index.html, modifica el script del Service Worker -->
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            // Registrar SW de PWA
             navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('PWA: Service Worker registrado'))
-            .catch(err => console.log('PWA: Error al registrar', err));
-            });
-        }
-    </script>
+                .then(reg => console.log('✅ PWA SW registrado:', reg.scope))
+                .catch(err => console.log('❌ Error PWA SW:', err));
+            
+            // Registrar SW de Firebase (necesario para notificaciones)
+            navigator.serviceWorker.register('./firebase-messaging-sw.js')
+                .then(reg => console.log('✅ Firebase SW registrado:', reg.scope))
+                .catch(err => console.log('❌ Error Firebase SW:', err));
+        });
+    }
+</script>
 </body>
 </html>

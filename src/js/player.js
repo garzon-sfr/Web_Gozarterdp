@@ -1,4 +1,5 @@
 import ChatManager from './modules/chat.js';
+import pushNotifications from './modules/push-notifications.js';
 /* ==========================================
    GOZARTE RDP - VINTAGE PLAYER
    Lógica independiente, optimizada, sin dependencia de API
@@ -26,6 +27,12 @@ class VintageRadioPlayer {
 
         // chat manager
         this.chat = new ChatManager();
+
+        this.pushNotifications = pushNotifications;
+        // console.log('✅ Notificaciones push listas');
+        
+        // Agregar botón de notificaciones al menú
+        this.addNotificationButton();
         
 
 
@@ -131,34 +138,47 @@ class VintageRadioPlayer {
         navigator.mediaSession.playbackState = this.elements.audioElement.paused ? 'paused' : 'playing';
     }
 
-    async createBlurredArtwork(artUrl) {
-        if (!artUrl) {
-            return this.elements.artworkMain.querySelector('img')?.src || '';
-        }
-
-        try {
-            const image = new Image();
-            image.crossOrigin = 'anonymous';
-
-            const loaded = await new Promise((resolve) => {
-                image.onload = () => resolve(true);
-                image.onerror = () => resolve(false);
-                image.src = artUrl;
-            });
-
-            if (!loaded) throw new Error('Imagen no cargada');
-
-            const size = 512;
-            const canvas = document.createElement('canvas');
-            canvas.width = size;
-            canvas.height = size;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(image, 0, 0, size, size);
-            return canvas.toDataURL('image/webp');
-        } catch (err) {
-            return artUrl;
-        }
+async createBlurredArtwork(artUrl) {
+    // Si no hay URL, usar imagen default
+    if (!artUrl) {
+        return this.elements.artworkMain?.querySelector('img')?.src || '/assets/images/LogosRDP.webp';
     }
+
+    try {
+        const image = new Image();
+        // No usar crossOrigin para evitar errores CORS
+        // image.crossOrigin = 'anonymous';
+
+        const loaded = await new Promise((resolve) => {
+            const timeout = setTimeout(() => resolve(false), 3000); // Timeout 3 segundos
+            image.onload = () => {
+                clearTimeout(timeout);
+                resolve(true);
+            };
+            image.onerror = () => {
+                clearTimeout(timeout);
+                resolve(false);
+            };
+            image.src = artUrl;
+        });
+
+        if (!loaded) {
+            // Si no se pudo cargar, usar imagen default sin error
+            return this.elements.artworkMain?.querySelector('img')?.src || '/assets/images/LogosRDP.webp';
+        }
+
+        const size = 512;
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0, size, size);
+        return canvas.toDataURL('image/webp');
+    } catch (err) {
+        // Silenciar cualquier error y usar imagen default
+        return this.elements.artworkMain?.querySelector('img')?.src || '/assets/images/LogosRDP.webp';
+    }
+}
 
     /**
      * Configura todos los event listeners
@@ -673,35 +693,105 @@ class VintageRadioPlayer {
             console.error('❌ Error crítico: El servidor de la radio dejó de enviar datos (Stalled)');
         });
     }
+
+    // En player.js, dentro del método addNotificationButton()
+    addNotificationButton() {
+        setTimeout(() => {
+            const menuContent = document.querySelector('.menu-content');
+            if (!menuContent) return;
+            
+            if (document.getElementById('push-notify-btn')) return;
+            
+            const notifBtn = document.createElement('button');
+            notifBtn.id = 'push-notify-btn';
+            notifBtn.className = 'menu-link';
+            notifBtn.style.cssText = `
+                width: 100%;
+                padding: 12px;
+                margin: 10px 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border: none;
+                color: white;
+                border-radius: 8px;
+                cursor: pointer;
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                justify-content: center;
+                transition: transform 0.2s;
+            `;
+            
+            // Verificar estado actual
+            const isAlreadySubscribed = localStorage.getItem('push_subscribed') === 'true';
+            if (isAlreadySubscribed && Notification.permission === 'granted') {
+                notifBtn.innerHTML = '<i class="fas fa-check"></i> Notificaciones activas';
+                notifBtn.style.background = 'linear-gradient(135deg, #11998e, #38ef7d)';
+                notifBtn.disabled = true;
+                notifBtn.style.opacity = '0.7';
+            } else {
+                notifBtn.innerHTML = '<i class="fas fa-bell"></i> Activar notificaciones';
+            }
+            
+            notifBtn.onclick = async (e) => {
+                e.stopPropagation();
+                
+                if (notifBtn.disabled) return;
+                
+                notifBtn.disabled = true;
+                notifBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Activando...';
+                
+                // Activar notificaciones (modo no silencioso para mostrar mensajes)
+                const success = await pushNotifications.activateNotifications(false);
+                
+                if (success) {
+                    notifBtn.innerHTML = '<i class="fas fa-check"></i> Notificaciones activas';
+                    notifBtn.style.background = 'linear-gradient(135deg, #11998e, #38ef7d)';
+                } else {
+                    notifBtn.innerHTML = '<i class="fas fa-bell"></i> Activar notificaciones';
+                    notifBtn.disabled = false;
+                }
+            };
+            
+            const menuFooter = menuContent.querySelector('.menu-footer');
+            if (menuFooter) {
+                menuContent.insertBefore(notifBtn, menuFooter);
+            } else {
+                menuContent.appendChild(notifBtn);
+            }
+        }, 1000);
+    }
 }
 
-
+const player = new VintageRadioPlayer();
+export default player;
 // ==========================================
 // INICIALIZACIÓN GLOBAL
 // ==========================================
 
-let player = null;
 
-document.addEventListener('DOMContentLoaded', () => {
-    // console.log('📱 DOM cargado - inicializando player');
-    player = new VintageRadioPlayer();
-});
 
-// Exposición de objeto DEBUG para desarrollo
-window.DEBUG = {
-    player: () => player,
-    state: () => player?.state,
-    controls: {
-        play: () => player?.play(),
-        pause: () => player?.pause(),
-        toggle: () => player?.togglePlay(),
-        setVolume: (v) => {
-            if (player) {
-                player.elements.volumeSlider.value = v;
-                player.elements.audioElement.volume = v / 100;
-            }
-        },
-        getMetadata: () => player?.state.currentNowPlaying
-    }
-};
+// document.addEventListener('DOMContentLoaded', () => {
+//     // console.log('📱 DOM cargado - inicializando player');
+//     player = new VintageRadioPlayer();
+// });
+
+// // Exposición de objeto DEBUG para desarrollo
+// window.DEBUG = {
+//     player: () => player,
+//     state: () => player?.state,
+//     controls: {
+//         play: () => player?.play(),
+//         pause: () => player?.pause(),
+//         toggle: () => player?.togglePlay(),
+//         setVolume: (v) => {
+//             if (player) {
+//                 player.elements.volumeSlider.value = v;
+//                 player.elements.audioElement.volume = v / 100;
+//             }
+//         },
+//         getMetadata: () => player?.state.currentNowPlaying
+//     }
+// };
 
