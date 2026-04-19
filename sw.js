@@ -17,7 +17,7 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 // ============ CONFIGURACIÓN DE PWA ============
-const CACHE_NAME = 'gozarte-v3.3';
+const CACHE_NAME = 'gozarte-v3.6';
 
 const ASSETS_TO_CACHE = [
     './',
@@ -38,23 +38,23 @@ self.addEventListener('install', (event) => {
     self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            console.log('📦 SW: Cacheando assets');
+            // console.log('📦 SW: Cacheando assets');
             return cache.addAll(ASSETS_TO_CACHE);
         }).catch((err) => {
-            console.error('❌ SW: Error cacheando:', err);
+            // console.error('❌ SW: Error cacheando:', err);
         })
     );
 });
 
 // ============ ACTIVATE ============
 self.addEventListener('activate', (event) => {
-    console.log('🧹 SW: Activando...');
+    // console.log('🧹 SW: Activando...');
     event.waitUntil(
         caches.keys().then((keys) => {
             return Promise.all(
                 keys.map((key) => {
                     if (key !== CACHE_NAME) {
-                        console.log('🗑️ SW: Eliminando caché viejo:', key);
+                        // console.log('🗑️ SW: Eliminando caché viejo:', key);
                         return caches.delete(key);
                     }
                 })
@@ -100,7 +100,7 @@ self.addEventListener('fetch', (event) => {
 
 // ============ NOTIFICACIONES EN BACKGROUND ============
 messaging.onBackgroundMessage((payload) => {
-    console.log("📩 Mensaje en background:", payload);
+    // console.log("📩 Mensaje en background:", payload);
     
     const notificationTitle = payload.notification?.title || 'Gozarte RDP';
     const notificationOptions = {

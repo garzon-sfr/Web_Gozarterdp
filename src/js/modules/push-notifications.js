@@ -215,12 +215,21 @@ class PushNotifications {
         // 3. Obtener token - Usar try-catch silencioso para el error interno
         try {
             // El error deleteTokenInternal ocurre dentro de Firebase, lo atrapamos silenciosamente
-            this.token = await getToken(messaging, { vapidKey: this.vapidKey });
+            const registration = await navigator.serviceWorker.getRegistration();
+            this.token = await getToken(messaging, { vapidKey: this.vapidKey, serviceWorkerRegistration: registration });
             
-            if (!this.token) {
-                this.tokenRequested = false;
-                if (!silent) this.showToast('❌ Error', 'No se pudo obtener token', 'error', 4000);
-                return false;
+            if (localStorage.getItem('push_token') === this.token) {
+            console.log('Token ya registrado');
+            return true;
+            }
+
+            // 🚫 Evitar reenviar el mismo token
+            const savedToken = localStorage.getItem('push_token');
+
+            if (savedToken === this.token) {
+                console.log('🔁 Token ya registrado, no se reenvía');
+                this.isSubscribed = true;
+                return true;
             }
             
             // 4. Enviar al backend

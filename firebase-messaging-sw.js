@@ -26,32 +26,40 @@ messaging.onBackgroundMessage((payload) => {
   //   console.log("📩 [SW-Firebase] Mensaje en background:", payload);
 
   const notificationTitle = payload.notification?.title || "Gozarte RDP";
-  const notificationOptions = {
-    body: payload.notification?.body || "Nueva notificación",
-    icon: "/assets/images/LogosRDP.webp",
+    const notificationOptions = {
+    body: payload.notification?.body || '',
+    icon: payload.notification?.icon || "/assets/images/LogosRDP.webp",
     badge: "/assets/images/LogosRDP.webp",
     vibrate: [200, 100, 200],
-    data: { url: "/" },
-  };
-
+    data: {
+        url: "/"
+    },
+    actions: [
+        {
+        action: 'open',
+        title: 'Abrir App'
+        }
+    ]
+    };
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
-self.addEventListener("notificationclick", (event) => {
-  //   console.log('👆 [SW-Firebase] Click en notificación');
+self.addEventListener('notificationclick', function(event) {
   event.notification.close();
+
   event.waitUntil(
-    clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then((clientList) => {
+    clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then(clientList => {
         for (const client of clientList) {
-          if (client.url === "/" && "focus" in client) {
+          if (client.url.includes('/') && 'focus' in client) {
             return client.focus();
           }
         }
         if (clients.openWindow) {
-          return clients.openWindow("/");
+          return clients.openWindow('/');
         }
-      }),
+      })
   );
 });
+
+
