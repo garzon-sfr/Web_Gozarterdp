@@ -73,6 +73,11 @@ html {
 body {
     font-family: 'Source Serif Pro', 'Georgia', serif;
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    /* background-image: url(imagen);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(10px); */
     background-attachment: fixed;
     color: var(--text-primary);
     -webkit-user-select: auto;
@@ -1051,7 +1056,7 @@ input:focus-visible {
     :root {
         /* Fondos claros pero con "textura" */
         --bg-primary: #a6f6ff65;          /* Gris muy claro, casi blanco */
-        --bg-secondary: #F1F5F9;        /* Un tono más para contrastar */
+        --bg-secondary: #d4e9ff;        /* Un tono más para contrastar */
         --bg-tertiary: #E2E8F0;
         
         /* Texto oscuro para leer bien */
@@ -1060,15 +1065,15 @@ input:focus-visible {
         --text-tertiary: #64748B;
         
         /* Neones en modo claro: se vuelven más intensos y oscuros al mismo tiempo */
-        --neon-blue: #00d0ff;            /* Azul más profundo y vibrante */
+        --neon-blue: #0066ff;            /* Azul más profundo y vibrante */
         --neon-blue-glow: 0 0 5px #0066CC, 0 0 10px #00A3FF;
         --neon-accent: #5A00D4;
         --neon-accent-glow: 0 0 5px #5A00D4, 0 0 15px #8A2BE2;
         
         /* Ajusta el primario para que contraste bien */
-        --primary: #d30000d0;
+        --primary: #2f585cd0;
         --primary-light: #000605;
-        --primary-dark: #00eeff;
+        --primary-dark: #00eeffc7;
     }
     
     /* Ajustes específicos para el modo claro */

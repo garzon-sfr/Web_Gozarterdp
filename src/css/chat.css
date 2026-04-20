@@ -435,7 +435,7 @@
     
     /* Chat Toggle - Modo Claro */
     .chat-toggle {
-        background: rgba(156, 156, 156, 0.86);
+        background: rgba(147, 147, 147, 0.488);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(133, 133, 133, 0.441);
@@ -464,7 +464,7 @@
 
     /* Contenedor principal */
     .chat-container {
-        background: rgba(215, 215, 215, 0);
+        background: rgba(215, 215, 215, 0.499);
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(15px);
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.407),

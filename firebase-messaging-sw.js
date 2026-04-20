@@ -37,7 +37,7 @@ messaging.onBackgroundMessage((payload) => {
     actions: [
         {
         action: 'open',
-        title: 'Abrir App'
+        title: 'Abrir GozarteRDP',
         }
     ]
     };
