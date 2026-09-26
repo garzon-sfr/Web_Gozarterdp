@@ -25,9 +25,13 @@ const ASSETS_TO_CACHE = [
     './manifest.json',
     './src/css/style.css',
     './src/css/chat.css',
+    './src/css/schedule.css',
+    './src/css/youtube-live.css',
     './src/js/player.js',
     './src/js/modules/chat.js',
     './src/js/modules/push-notifications.js',
+    './src/js/modules/schedule.js',
+    './src/js/modules/youtube-live.js',
     './assets/favicon.ico',
     './assets/images/LogosRDP.webp'
 ];

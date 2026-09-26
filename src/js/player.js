@@ -1,5 +1,7 @@
 import ChatManager from "./modules/chat.js";
 import pushNotifications from "./modules/push-notifications.js";
+import ScheduleManager from "./modules/schedule.js";
+import YouTubeLiveManager from "./modules/youtube-live.js";
 /* ==========================================
    GOZARTE RDP - VINTAGE PLAYER
    Lógica independiente, optimizada, sin dependencia de API
@@ -28,6 +30,12 @@ class VintageRadioPlayer {
 
     // chat manager
     this.chat = new ChatManager();
+
+    // schedule manager
+    this.schedule = new ScheduleManager();
+
+    // youtube live manager
+    this.youtubeLive = new YouTubeLiveManager(this);
 
     this.pushNotifications = pushNotifications;
     // console.log('✅ Notificaciones push listas');

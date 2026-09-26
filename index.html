@@ -25,6 +25,8 @@
     
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/chat.css">
+    <link rel="stylesheet" href="src/css/schedule.css">
+    <link rel="stylesheet" href="src/css/youtube-live.css">
 </head>
 <body>
     <!-- Contenedor principal sin scroll -->
@@ -50,6 +52,14 @@
         </div>
             <button class="chat-toggle" id="chat-toggle">
                 <i class="fas fa-comments"></i>
+            </button>
+            <button class="schedule-toggle" id="scheduleToggle" aria-label="Ver programación semanal" title="Programación semanal">
+                <i class="fas fa-calendar-alt"></i>
+            </button>
+            <!-- Botón Flotante Neón de YouTube Live (oculto por defecto) -->
+            <button id="ytLiveBanner" class="yt-live-banner hidden" aria-label="Ver transmisión en vivo de YouTube">
+                <span class="yt-live-dot"></span>
+                <span>🔴¡EN VIVO EN YOUTUBE!</span>
             </button>
         <!-- Song Artwork Overlay (esquina inferior derecha) fuera del contenedor principal -->
         <div class="song-artwork-container hidden" id="songArtworkContainer">
@@ -193,6 +203,74 @@
             </div>
         </div>
     </div>    
+
+    <!-- Modal de Programación Semanal -->
+    <div id="scheduleModal" class="schedule-modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="scheduleTitle">
+        <div class="schedule-modal">
+            <div class="schedule-header">
+                <div class="schedule-header-info">
+                    <h3 id="scheduleTitle" class="schedule-title">
+                        <i class="fas fa-calendar-alt"></i> Programación Semanal
+                    </h3>
+                    <span id="scheduleWeekRange" class="schedule-week-range">Semana actual</span>
+                </div>
+                <button id="scheduleClose" class="schedule-close-btn" aria-label="Cerrar programación">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="schedule-days-nav" id="scheduleDaysNav">
+                <!-- Pestañas de días (Lunes a Domingo) generadas dinámicamente -->
+            </div>
+            <div class="schedule-content" id="scheduleContent">
+                <!-- Lista de programas del día seleccionado -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de YouTube Live Embebido -->
+    <div id="ytModal" class="yt-modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="ytStreamTitle">
+        <div class="yt-modal">
+            <div class="yt-modal-header">
+                <div class="yt-modal-title-wrap">
+                    <h3 class="yt-modal-title">
+                        <i class="fab fa-youtube"></i>
+                        <span id="ytStreamTitle">Transmisión en Vivo</span>
+                    </h3>
+                    <span class="yt-modal-badge">EN VIVO</span>
+                </div>
+                <button id="ytModalClose" class="yt-modal-close" aria-label="Cerrar video">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="yt-video-container">
+                <iframe 
+                    id="ytIframe" 
+                    src="" 
+                    title="Transmisión en Vivo - Iglesia Rey de Paz"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="yt-modal-footer">
+                <div class="yt-stream-info">
+                    <span class="yt-channel-name">
+                        <i class="fas fa-church"></i> Iglesia Rey de Paz - Santa Bárbara
+                    </span>
+                    <span class="yt-stream-subtitle">Transmisión oficial en directo</span>
+                </div>
+                <a 
+                    href="https://www.youtube.com/@IglesiaReydePazStaBarbara?sub_confirmation=1" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="yt-subscribe-btn"
+                    title="Suscribirse en YouTube"
+                >
+                    <i class="fab fa-youtube"></i> Abrir en YouTube / Suscribirse
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Script principal -->
     <script type="module" src="/src/js/player.js"></script>
 <!-- En tu index.html, modifica el script del Service Worker -->
